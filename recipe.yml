@@ -91,6 +91,8 @@ config:
         - 'delete own files'
         - 'view media'
     user.role.site_admin:
+      createIfNotExists:
+        label: 'Site administrator'
       grantPermissions:
         - 'access media overview'
         - 'create media'
