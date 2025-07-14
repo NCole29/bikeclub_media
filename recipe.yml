@@ -6,7 +6,7 @@ recipes:
   - core/recipes/image_media_type
   - core/recipes/standard_responsive_images
 install:
-  - media
+  # Taxonomy requires node, so specify import config below.
   - taxonomy
   # Contrib.
   - crop
@@ -14,6 +14,23 @@ install:
   - svg_image
 config:
   strict: false
+  import:
+    node:
+      # Import config which is imported by the Standard profile,
+      # exclude field.storage.node.body. Include optional views.
+      - core.entity_view_mode.node.full
+      - core.entity_view_mode.node.rss
+      - core.entity_view_mode.node.teaser
+      - system.action.node_delete_action
+      - system.action.node_make_sticky_action
+      - system.action.node_make_unsticky_action
+      - system.action.node_promote_action
+      - system.action.node_publish_action
+      - system.action.node_save_action
+      - system.action.node_unpromote_action
+      - system.action.node_unpublish_action
+      - views.view.content
+      - views.view.frontpage
   actions:
     core.entity_form_display.media.image.default:
       setComponent:
