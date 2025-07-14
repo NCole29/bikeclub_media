@@ -7,7 +7,6 @@ recipes:
   - core/recipes/standard_responsive_images
 install:
   - media
-  - media_library
   - taxonomy
   # Contrib.
   - crop
@@ -15,15 +14,6 @@ install:
   - svg_image
 config:
   strict: false
-  import:
-    media:
-      - core.entity_view_mode.media.full.yml
-      - media.settings.yml
-      - system.action.media_delete_action.yml
-      - system.action.media_publish_action.yml
-      - system.action.media_save_action.yml
-      - system.action.media_unpublish_action.yml
-    media_library: '*'
   actions:
     core.entity_form_display.media.image.default:
       setComponent:
