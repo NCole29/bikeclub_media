@@ -12,6 +12,7 @@ install:
   - entity_browser
   - svg_image
 config:
+  # Strict false applies to config folder, so we overwrite views.view.media
   strict: false
   actions:
     core.entity_form_display.media.image.default:
