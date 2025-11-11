@@ -82,6 +82,33 @@ config:
       grantPermissions:
         - 'delete own files'
         - 'view media'
+    user.role.membership:
+      createIfNotExists:
+        label: 'Membership coordinator'
+      grantPermissions:
+        - 'access media overview'
+        - 'create media'
+        - 'delete own media'
+        - 'update own media'
+        - 'view own unpublished media'
+    user.role.ride_leader:
+      createIfNotExists:
+        label: 'Ride leader'
+      grantPermissions:
+        - 'access media overview'
+        - 'create media'
+        - 'delete own media'
+        - 'update own media'
+        - 'view own unpublished media'     
+    user.role.rides_coordinator:
+      createIfNotExists:
+        label: 'Rides coordinator'
+      grantPermissions:
+        - 'access media overview'
+        - 'create media'
+        - 'delete own media'
+        - 'update own media'
+        - 'view own unpublished media'          
     user.role.site_admin:
       createIfNotExists:
         label: 'Site administrator'
