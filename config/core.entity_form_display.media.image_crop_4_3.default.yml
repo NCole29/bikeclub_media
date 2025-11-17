@@ -15,13 +15,13 @@ mode: default
 content:
   field_image_category:
     type: options_select
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   field_media_image:
     type: image_widget_crop
-    weight: 1
+    weight: 2
     region: content
     settings:
       progress_indicator: throbber
@@ -46,5 +46,7 @@ content:
 hidden:
   created: true
   path: true
+  publish_on: true
   status: true
   uid: true
+  unpublish_on: true

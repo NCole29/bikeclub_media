@@ -1,6 +1,7 @@
 name: 'Bikeclub Media'
 description: 'Provides media types, view modes, and taxonomies.'
 type: 'Media type'
+# These recipes require media_library, which requires media, which requires file. 
 recipes:
   - core/recipes/document_media_type
   - core/recipes/image_media_type
@@ -10,11 +11,15 @@ install:
   # Contrib.
   - crop
   - entity_browser
+  - media_file_delete
   - svg_image
 config:
   # Strict false applies to config folder, so we overwrite views.view.media
   strict: false
   actions:
+    media_file_delete.settings:
+      simpleConfigUpdate:
+        delete_file_default: true
     core.entity_form_display.media.image.default:
       setComponent:
         name: field_image_category
@@ -72,9 +77,8 @@ config:
         name: field_media_document
         options:
           use_description_as_link_text: true
-    # Assign Drupal permissions for media.
-    # Content creator/ride_leader may delete/update own media.
-    # Editor/rides_coordinator/site_admin may delete/update any media.
+    # Ride_leader and coordinators may delete/update own media.
+    # Site_admin may delete/update any media.
     user.role.anonymous:
       grantPermissions:
         - 'view media'
@@ -99,7 +103,16 @@ config:
         - 'create media'
         - 'delete own media'
         - 'update own media'
-        - 'view own unpublished media'     
+        - 'view own unpublished media' 
+    user.role.events_coordinator:
+      createIfNotExists:
+        label: 'Events coordinator'
+      grantPermissions:
+        - 'access media overview'
+        - 'create media'
+        - 'delete own media'
+        - 'update own media'
+        - 'view own unpublished media'
     user.role.rides_coordinator:
       createIfNotExists:
         label: 'Rides coordinator'
@@ -118,3 +131,21 @@ config:
         - 'delete any media'
         - 'update any media'
         - 'view own unpublished media'
+    views.view.files:
+      simpleConfigUpdate:
+        display:
+          default:
+            display_options:
+              header:
+                area_text_custom:
+                  id: area_text_custom
+                  table: views
+                  field: area_text_custom
+                  relationship: none
+                  group_type: group
+                  admin_label: ''
+                  plugin_id: text_custom
+                  empty: false
+                  content: "Media files are listed here and on the Media tab:\r\n<li>Files tab provides information from the server (filename, type, size, status, and dates), plus the number of places used on the website.</li> <li>Media tab provides information from the database (filename is set equal to the \"alt text\" and category may be assigned).</li> \r\n<p>Files deleted from the Media tab are not deleted from the server but may be deleted from this list if not used. When deleted, file status changes to temporary. Temporary files are deleted after 6 hours through periodic system clean-up.</p>\r\nUpload files using the <a href=\"/admin/content/media\">Add Media</a> button on the Media tab."
+                  tokenize: false
+                  
